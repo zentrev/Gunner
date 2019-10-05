@@ -675,24 +675,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 320950527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea42a06300e4eb4fa65dae689e2dd01, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a3e308a407acc145ad281245b3fe044, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireTransform: {fileID: 1498534269}
-  projectile: {fileID: 1498534268}
-  sphereCastFireing: 1
-  sphereCastLayerMask:
+  m_fireTransform: {fileID: 1498534269}
+  m_projectilePrefab: {fileID: 7299172449695840362, guid: 4ef8d47a44fa68843a878219cee65e61,
+    type: 3}
+  m_minTriggerPull: 0.2
+  m_sphereCastFiring: 1
+  m_spherecastSize: 0.1
+  m_sphereCastDistance: 1000
+  m_spherecastLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  sphereCastSize: 0.1
-  sphereCastDistance: 1000
-  minTriggerPull: 0.2
-  muzzleFlash: {fileID: 1513178938}
-  coastSpeed: 0.4
-  touchSpeed: 3
-  fullSpeed: 10
-  acceleration: 0.5
-  deceleration: 1
+    m_Bits: 0
+  m_coastSpeed: 0.5
+  m_touchSpeed: 7
+  m_fullSpeed: 15
+  m_acceleration: 0.5
+  m_deceleration: 0.5
+  m_muzzelFlash: {fileID: 1513178938}
 --- !u!114 &320950530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2369,23 +2370,6 @@ MonoBehaviour:
   previewPoseSelection: 0
   blendingBehaviours: []
   scale: 1
---- !u!114 &1236799123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236799121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a39bac1418723443899cdf67e0a3572, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turret: {fileID: 320950527}
-  rotationSpeed: 5
-  maintainMomemntum: 1
-  momemtumDampenRate: 5
-  attachmentFlags: 4
 --- !u!114 &1236799124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2437,6 +2421,21 @@ MonoBehaviour:
   handFollowTransform: 1
   highlightOnHover: 1
   hideHighlight: []
+--- !u!114 &1236799125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236799121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c896eea2f2966814cac93f577a960a22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_turret: {fileID: 320950527}
+  m_barrelRotationSpeed: 5
+  attachmentFlags: 4
 --- !u!64 &1236799128
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3468,6 +3467,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1344459942}
     m_Modifications:
+    - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3511,10 +3514,6 @@ PrefabInstance:
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
-      propertyPath: m_Name
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: uiInteractAction.actionPath
@@ -4076,6 +4075,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8342184246869943323, guid: 428af1750627cc14c994d1f6336b6b61,
+        type: 3}
+      propertyPath: m_Name
+      value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342184246869943323, guid: 428af1750627cc14c994d1f6336b6b61,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6571795779138742775, guid: 428af1750627cc14c994d1f6336b6b61,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4129,16 +4138,6 @@ PrefabInstance:
     - target: {fileID: 6571795779138742775, guid: 428af1750627cc14c994d1f6336b6b61,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8342184246869943323, guid: 428af1750627cc14c994d1f6336b6b61,
-        type: 3}
-      propertyPath: m_Name
-      value: Turret
-      objectReference: {fileID: 0}
-    - target: {fileID: 8342184246869943323, guid: 428af1750627cc14c994d1f6336b6b61,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2113242726320666477, guid: 428af1750627cc14c994d1f6336b6b61,

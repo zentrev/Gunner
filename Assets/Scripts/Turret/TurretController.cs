@@ -1,99 +1,86 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 using Valve.VR.InteractionSystem;
-
 public class TurretController : MonoBehaviour
 {
 
+    #region Firing Fields
     [Header("Firing")]
-    [SerializeField] Transform fireTransform = null;
-    [SerializeField] GameObject projectile = null;
-    [SerializeField] bool sphereCastFireing = true;
-    [SerializeField] LayerMask sphereCastLayerMask = 0;
-    [SerializeField] float sphereCastSize = .1f;
-    [SerializeField] float sphereCastDistance = 1000.0f;
+    [SerializeField] Transform m_fireTransform = null;
+    [SerializeField] GameObject m_projectilePrefab = null;
+    [SerializeField] [Range(0.0f, 1.0f)] float m_minTriggerPull = 0.2f;
+    [SerializeField] bool m_sphereCastFiring = true;
+    [SerializeField] [Range(0.0f, 10.0f)] float m_spherecastSize = 0.1f;
+    [SerializeField] [Range(0.0f, 2000.0f)] float m_sphereCastDistance = 1000.0f;
+    [SerializeField] LayerMask m_spherecastLayerMask = 0;
+    #endregion
 
-    [SerializeField] [Range(0.0f, 1.0f)] float minTriggerPull = .2f;
-    [SerializeField] MuzzleFlash muzzleFlash = null;
 
+    #region Rotation Fields
     [Header("Rotation")]
-    [SerializeField] float coastSpeed = .5f;
-    [SerializeField] float touchSpeed = 7.0f;
-    [SerializeField] float fullSpeed = 15.0f;
-    [SerializeField] float acceleration = .5f;
-    [SerializeField] float deceleration = .5f;
+    [SerializeField] [Range(0.0f, 20.0f)] float m_coastSpeed = 0.5f;
+    [SerializeField] [Range(0.0f, 20.0f)] float m_touchSpeed = 7.0f;
+    [SerializeField] [Range(0.0f, 20.0f)] float m_fullSpeed = 15.0f;
+    [SerializeField] [Range(0.0f, 20.0f)] float m_acceleration = 0.5f;
+    [SerializeField] [Range(0.0f, 20.0f)] float m_deceleration = 0.5f;
+    #endregion
 
-    protected float targetSpeed = 0.0f;
-    protected List<Hand> currentHands = new List<Hand>();
-    protected Animator turretAnimatior = null;
+    [SerializeField] MuzzleFlash m_muzzelFlash = null;
+    protected float m_targetSpeed = 0.0f;
+    protected List<Hand> m_currentHands = new List<Hand>();
+    protected Animator m_turretAnimator = null;
 
-
-    void Awake()
+    private void Awake()
     {
-        targetSpeed = coastSpeed;
-        turretAnimatior = GetComponent<Animator>();
+        m_targetSpeed = m_coastSpeed;
+        m_turretAnimator = GetComponent<Animator>();
     }
 
-    void Update()
+    private void Update()
     {
+        m_turretAnimator.speed = Mathf.Lerp(m_turretAnimator.speed, m_targetSpeed, (m_turretAnimator.speed < m_targetSpeed ? m_acceleration : m_deceleration) * Time.deltaTime);
 
-        turretAnimatior.speed = Mathf.Lerp(turretAnimatior.speed, targetSpeed, (turretAnimatior.speed < targetSpeed ? acceleration : deceleration) * Time.deltaTime);
-        //Debug.Log(turretAnimatior.speed);
-
-        foreach (Hand hand in currentHands)
-        {
-            IndexInput input = hand.GetComponent<IndexInput>(); 
-            if(input.TriggerTouch)
-            {
-                targetSpeed = touchSpeed;
-            }
-            if (input.TriggerPull > 0)
-            {
-                targetSpeed = (((fullSpeed - touchSpeed) * input.TriggerPull) + touchSpeed);
-            }
-            if(input.TriggerClick)
-            {
-                targetSpeed = fullSpeed;
-            }
-        }
-        if (currentHands.Count == 0) targetSpeed = coastSpeed;
-
-        
-    }
-
-    void Fire()
-    {
-        foreach (Hand hand in currentHands)
+        foreach(Hand hand in m_currentHands)
         {
             IndexInput input = hand.GetComponent<IndexInput>();
-            if (input.TriggerPull > minTriggerPull)
+            if (input.TriggerTouch) m_targetSpeed = m_touchSpeed;
+            if (input.TriggerPull > 0.0f) m_targetSpeed = (((m_fullSpeed - m_touchSpeed) * input.TriggerPull) + m_touchSpeed);
+            if (input.TriggerClick) m_targetSpeed = m_fullSpeed;
+        }
+        if (m_currentHands.Count == 0) m_targetSpeed = m_coastSpeed;
+    }
+
+    public void Fire()
+    {
+        foreach(Hand hand in m_currentHands)
+        {
+            IndexInput input = hand.GetComponent<IndexInput>();
+            if(input.TriggerPull > m_minTriggerPull)
             {
-                //if(sphereCastFireing)
-                //{
-                //    if(Physics.SphereCast(fireTransform.position, sphereCastSize, fireTransform.forward, out RaycastHit hitInfo, sphereCastDistance, sphereCastLayerMask))
-                //    {
-                //        Debug.Log(hitInfo.transform.name);
-                //    }
-                //}
+                if (m_sphereCastFiring)
+                {
+                    if(Physics.SphereCast(m_fireTransform.position, m_spherecastSize, m_fireTransform.forward, out RaycastHit hitInfo, m_sphereCastDistance, m_spherecastLayerMask))
+                    {
+                        Debug.Log(hitInfo.transform.name);
+                    }
+                    GameObject _projectile = Instantiate(m_projectilePrefab, m_fireTransform);
 
-                //GameObject _projectile = Instantiate(projectile, fireTransform);
-
-                StartCoroutine(muzzleFlash.Flash());
+                    StartCoroutine(m_muzzelFlash.Flash());
+                }
             }
         }
     }
 
     public void AttachHand(Hand hand)
     {
-        if (currentHands.Contains(hand)) throw new System.Exception("How did you do this???");
-        currentHands.Add(hand);
+        if (m_currentHands.Contains(hand)) throw new System.Exception("Multiple hands on one thing. How'd you do this????");
+        m_currentHands.Add(hand);
     }
-
-    public void DetachedHand(Hand hand)
+    public void DetachHand(Hand hand)
     {
-        if (!currentHands.Contains(hand)) return; 
-        currentHands.Remove(hand);
+        if (!m_currentHands.Contains(hand)) return;
+        m_currentHands.Remove(hand);
     }
-
 }

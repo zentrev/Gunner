@@ -1622,7 +1622,7 @@ GameObject:
   - component: {fileID: 2919990989272332698}
   - component: {fileID: 3885521783475126766}
   - component: {fileID: 4038428072225268914}
-  - component: {fileID: 8512436109947958199}
+  - component: {fileID: 987299203046542184}
   - component: {fileID: 4454996211294798120}
   m_Layer: 0
   m_Name: TurretHandel
@@ -1757,7 +1757,7 @@ MonoBehaviour:
   handFollowTransform: 1
   highlightOnHover: 1
   hideHighlight: []
---- !u!114 &8512436109947958199
+--- !u!114 &987299203046542184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1766,13 +1766,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5781400866168534921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a39bac1418723443899cdf67e0a3572, type: 3}
+  m_Script: {fileID: 11500000, guid: c896eea2f2966814cac93f577a960a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turret: {fileID: 0}
-  maintainMomemntum: 1
-  momemtumDampenRate: 5
-  attachmentFlags: 6
+  m_turret: {fileID: 0}
+  m_barrelRotationSpeed: 5
+  attachmentFlags: 4
 --- !u!114 &4454996211294798120
 MonoBehaviour:
   m_ObjectHideFlags: 0
