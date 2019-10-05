@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 815784681096038625}
   m_Layer: 0
-  m_Name: Handle
+  m_Name: Handel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,11 +251,6 @@ PrefabInstance:
       propertyPath: showRightPreview
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 987299203046542184, guid: 9f1cf3a9aa576504b89ae3169458d553,
-        type: 3}
-      propertyPath: m_turret
-      value: 
-      objectReference: {fileID: 8342184246869943323}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f1cf3a9aa576504b89ae3169458d553, type: 3}
 --- !u!4 &2113242726320666477 stripped
@@ -334,11 +329,6 @@ PrefabInstance:
     - target: {fileID: 8512436109947958199, guid: 9f1cf3a9aa576504b89ae3169458d553,
         type: 3}
       propertyPath: turret
-      value: 
-      objectReference: {fileID: 8342184246869943323}
-    - target: {fileID: 987299203046542184, guid: 9f1cf3a9aa576504b89ae3169458d553,
-        type: 3}
-      propertyPath: m_turret
       value: 
       objectReference: {fileID: 8342184246869943323}
     m_RemovedComponents: []
