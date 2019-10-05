@@ -3518,19 +3518,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: uiInteractAction.actionPath
-      value: /actions/default/in/TriggerClick
+      value: /actions/default/in/InteractUI
       objectReference: {fileID: 0}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: uiInteractAction.needsReinit
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: uiInteractAction.actionPath
-      value: /actions/default/in/GrabGrip
+      value: /actions/default/in/InteractUI
       objectReference: {fileID: 0}
     - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: uiInteractAction.needsReinit
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13533284, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Enabled
