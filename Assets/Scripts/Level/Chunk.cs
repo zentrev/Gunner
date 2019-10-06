@@ -30,8 +30,7 @@ public class Chunk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("start node distance = " + startNodeDistance);
-        print("end node distance = " + endNodeDistance);
+
         endNodeDistance = EndNode.transform.position.magnitude - truckPosition.transform.position.magnitude;
         if(endNodeDistance < chunkLoadDistance && !newChunkLoaded)
         {
