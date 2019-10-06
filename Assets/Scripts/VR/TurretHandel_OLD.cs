@@ -6,7 +6,7 @@ using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 [RequireComponent(typeof(Interactable))]
-public class TurretHandel : MonoBehaviour
+public class TurretHandel_OLD : MonoBehaviour
 {
     [SerializeField] GameObject turret = null;
     [SerializeField] [Range(0.0f, 50.0f)] float rotationSpeed = 5.0f;
@@ -84,7 +84,7 @@ public class TurretHandel : MonoBehaviour
     protected virtual void OnDetachedFromHand(Hand hand)
     {
         CalculateMappingChangeRate();
-        turret.GetComponent<TurretController>().DetachedHand(hand);
+        turret.GetComponent<TurretController>().DetachHand(hand);
 
     }
 
